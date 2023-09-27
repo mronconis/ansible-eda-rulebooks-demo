@@ -1,0 +1,21 @@
+---
+- name: Watch for new ServiceNow records
+  hosts: localhost
+
+  sources:
+
+     - mronconi.ansible_eda.snow_poll_record:
+         instance: "{{ SN_HOST }}"
+         username: "{{ SN_USERNAME }}"
+         password: "{{ SN_PASSWORD }}"
+         table: incident
+         interval: 1
+
+  rules:
+
+    - name: Trigger Request - New AMQ Streams Resources
+      condition: event.short_description == "Request form for a new AMQ streams resources"
+      action:
+        run_playbook:
+          name: amqstreams-resources-request.yml
+    

@@ -1,0 +1,12 @@
+---
+- name: Launch New AMQ Streams user workflow
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+
+    - name: New AMQ Streams resources request event
+      ansible.builtin.debug:
+        msg: Handle event {{ event }} and apply on host {{ inventory_hostname }}
+   
+   
